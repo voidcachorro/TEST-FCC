@@ -74,11 +74,7 @@ function exportToLink() {
   const serializedData = btoa(JSON.stringify(cultureData));
   const url = new URL(window.location.href);
   url.searchParams.set('culture', serializedData);
-  navigator.clipboard.writeText(url.href).then(() => {
-    showNotification('Shareable link copied to clipboard!');
-  }, () => {
-    showNotification('Failed to copy shareable link.');
-  });
+  prompt("Copy this link to share your culture:", url.href);
 }
 
 function importFromLink() {
@@ -405,7 +401,7 @@ function parseCultureFile(content) {
   };
 
   for (const [key, dropdownId] in Object.entries(dropdownMappings)) {
-    const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '\s*(.+)');
+    const regex = new RegExp(key.replace(/[.*+?^${}()|[\]\\]/g, '\$&') + '\s*(.+)');
     const match = content.match(regex);
     if (match && !match[1].includes('Not specified')) {
       const dropdown = document.getElementById(dropdownId);
@@ -599,12 +595,12 @@ function showTooltip(event, ethos) {
   }, 10);
 }
 // Show dropdown tooltip
-function showDropdownTooltip(event, text) {
+function showDropdownTooltip(event, title, text) {
   if (activeTooltip) activeTooltip.remove();
   const tooltip = document.createElement('div');
   tooltip.className = 'tooltip';
   tooltip.innerHTML = `
-                <div class="tooltip-header"><h3 class="tooltip-title">Information</h3></div>
+                <div class="tooltip-header"><h3 class="tooltip-title">${title}</h3></div>
                 <div class="tooltip-content"><p>${text}</p></div>
             `;
   document.body.appendChild(tooltip);
@@ -615,12 +611,12 @@ function showDropdownTooltip(event, text) {
   }, 10);
 }
 
-function showButtonTooltip(event, text) {
+function showButtonTooltip(event, title, text) {
   if (activeTooltip) activeTooltip.remove();
   const tooltip = document.createElement('div');
   tooltip.className = 'tooltip';
   tooltip.innerHTML = `
-                <div class="tooltip-header"><h3 class="tooltip-title">Information</h3></div>
+                <div class="tooltip-header"><h3 class="tooltip-title">${title}</h3></div>
                 <div class="tooltip-content"><p>${text}</p></div>
             `;
   document.body.appendChild(tooltip);
@@ -677,21 +673,48 @@ function setupEventListeners() {
   });
 
   const buttonTooltips = {
-    'auto-generate-btn': 'Automatically generate a plural and adjective form of the culture name.',
-    'randomize-btn': 'Randomize all options in the creator.',
-    'clear-btn': 'Clear all selected options.',
-    'fill-in-blanks-btn': 'Fill in any blank fields with random selections.',
-    'generate-btn': 'Save the culture as a TXT file.',
-    'png-btn': 'Save the current view as a PNG image.',
-    'import-from-file-btn': 'Import a culture from a TXT file.',
-    'import-from-link-btn': 'Import a culture from a shared link.',
-    'export-to-link-btn': 'Export the current culture to a shareable link.'
+    'auto-generate-btn': {
+      title: 'Auto-Generate Plural and Adjective',
+      text: 'Automatically generate a plural and adjective form of the culture name.'
+    },
+    'randomize-btn': {
+      title: 'Randomize All',
+      text: 'Randomize all options in the creator.'
+    },
+    'clear-btn': {
+      title: 'Clear All',
+      text: 'Clear all selected options.'
+    },
+    'fill-in-blanks-btn': {
+      title: 'Fill in Blanks',
+      text: 'Fill in any blank fields with random selections.'
+    },
+    'generate-btn': {
+      title: 'Save as TXT',
+      text: 'Save the culture as a TXT file.'
+    },
+    'png-btn': {
+      title: 'Save as PNG',
+      text: 'Save the current view as a PNG image.'
+    },
+    'import-from-file-btn': {
+      title: 'Import from TXT',
+      text: 'Import a culture from a TXT file.'
+    },
+    'import-from-link-btn': {
+      title: 'Import from link',
+      text: 'Import a culture from a shared link.'
+    },
+    'export-to-link-btn': {
+      title: 'Export to link',
+      text: 'Export the current culture to a shareable link.'
+    }
   };
 
   for (const btnClass in buttonTooltips) {
     const btn = document.querySelector(`.${btnClass}`);
     if (btn) {
-      btn.addEventListener('mouseenter', (e) => showButtonTooltip(e, buttonTooltips[btnClass]));
+      btn.addEventListener('mouseenter', (e) => showButtonTooltip(e, buttonTooltips[btnClass].title, buttonTooltips[btnClass].text));
       btn.addEventListener('mouseleave', hideTooltip);
     }
   }
@@ -708,8 +731,9 @@ function setupCustomDropdowns() {
       if (value) {
         const option = dropdown.querySelector(`.dropdown-option[data-value="${value}"]`);
         if (option) {
+          const title = option.querySelector('.option-title').textContent;
           const description = option.querySelector('.option-description').textContent;
-          showDropdownTooltip(e, description);
+          showDropdownTooltip(e, title, description);
         }
       }
     });
@@ -764,7 +788,8 @@ function setupCustomDropdowns() {
 // Setup tooltips
 function setupLabelTooltips() {
   document.querySelectorAll('.label-help, .clothing-help').forEach(button => {
-    button.addEventListener('mouseenter', (e) => showDropdownTooltip(e, button.dataset.tooltip));
+    const title = button.previousElementSibling.textContent;
+    button.addEventListener('mouseenter', (e) => showDropdownTooltip(e, title, button.dataset.tooltip));
     button.addEventListener('mouseleave', hideTooltip);
   });
 }
