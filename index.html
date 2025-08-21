@@ -1,0 +1,1658 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Fantasy Culture Creator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Fantasy Culture Creator</h1>
+      <p class="subtitle">Craft unique civilizations for your world</p>
+    </header>
+    <main>
+      <div class="culture-name-section">
+        <div class="name-input-group">
+          <label for="cultureName">Culture Name</label>
+          <input type="text" id="cultureName" placeholder="Enter culture name">
+        </div>
+        <div class="name-input-group">
+          <label for="culturePlural">Plural</label>
+          <input type="text" id="culturePlural" placeholder="e.g., Romans">
+        </div>
+        <div class="name-input-group">
+          <label for="cultureAdjective">Adjective</label>
+          <input type="text" id="cultureAdjective" placeholder="e.g., Roman">
+        </div>
+        <div class="action-buttons-container">
+          <button class="action-btn auto-generate-btn" onclick="generatePluralAdjective()">Auto-Generate Plural and
+            Adjective</button>
+          <div class="examples-btn-group">
+            <div class="custom-dropdown" id="examples-dropdown">
+              <div class="dropdown-selected">
+                <span>Culture Examples</span>
+                <span class="dropdown-arrow">▼</span>
+              </div>
+              <div class="dropdown-options">
+                <div class="dropdown-option" data-value="Roman">
+                  <div class="option-header"><span class="option-title">Roman</span></div>
+                </div>
+                <div class="dropdown-option" data-value="Egyptian">
+                  <div class="option-header"><span class="option-title">Egyptian</span></div>
+                </div>
+                <div class="dropdown-option" data-value="Chinese">
+                  <div class="option-header"><span class="option-title">Chinese</span></div>
+                </div>
+                <div class="dropdown-option" data-value="Persian">
+                  <div class="option-header"><span class="option-title">Persian</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="action-btn randomize-btn" onclick="randomizeAllOptions()">Randomize All</button>
+          <button class="action-btn clear-btn" onclick="clearAllOptions()">Clear All</button>
+          <button class="action-btn auto-generate-btn" onclick="fillInBlanks()">Fill in Blanks</button>
+          <button class="action-btn undo-redo-btn" onclick="undo()">Undo</button>
+          <button class="action-btn undo-redo-btn" onclick="redo()">Redo</button>
+        </div>
+      </div>
+
+      <div class="divergence-section">
+        <div class="divergence-input-group-small">
+          <label for="divergedFrom">Diverged From</label>
+          <input type="text" id="divergedFrom" placeholder="Parent culture name">
+        </div>
+        <div class="divergence-input-group-small">
+          <label for="divergenceYear">Year of Divergence</label>
+          <input type="number" id="divergenceYear" placeholder="e.g., 1245">
+        </div>
+        <div class="era-group">
+          <label for="era">Era</label>
+          <div class="custom-dropdown" id="era-dropdown">
+            <div class="dropdown-selected">
+              <span>Select era</span>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="dropdown-options">
+              <div class="dropdown-option" data-value="btu">
+                <div class="option-header">
+                  <span class="option-title">BTU (Before the Unification)</span>
+                </div>
+                <div class="option-description">Years before the great unification. These years count backward from the
+                  unification event.</div>
+              </div>
+              <div class="dropdown-option" data-value="atu">
+                <div class="option-header">
+                  <span class="option-title">ATU (After the Unification)</span>
+                </div>
+                <div class="option-description">Years after Shayan I of house Parsavid united the north Mahahari tribes.
+                  The empire rose and changed the world forever.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="species-group">
+          <label for="species">Species</label>
+          <div class="custom-dropdown" id="species-dropdown">
+            <div class="dropdown-selected">
+              <span>Select species</span>
+              <span class="dropdown-arrow">▼</span>
+            </div>
+            <div class="dropdown-options">
+              <div class="dropdown-option" data-value="humans">
+                <div class="option-header">
+                  <span class="option-title">🧑 Humans</span>
+                </div>
+                <div class="option-description">Guided by the great dead giants to the east, humans evolved away from them growing into the most adaptable and innovative species in the world. Carving complex societies and expanding through their relentless will to endure and conquer.</div>
+              </div>
+              <div class="dropdown-option" data-value="aruhim">
+                <div class="option-header">
+                  <span class="option-title">🐘 Aruhim</span>
+                </div>
+                <div class="option-description">Slumbering colossal half-elephant ancients that when awake can harverst an natural psyonic mind capable of shifting their own surrounding realities, Once hunted to near extinction by men, the few who remain are gentle by nature and often hide from danger.</div>
+              </div>
+              <div class="dropdown-option" data-value="nerada">
+                <div class="option-header">
+                  <span class="option-title">🧛 Nerada</span>
+                </div>
+                <div class="option-description">Pale and unsettling beings with black eyes, oily skin, and leech-born thirst for blood, this species prefers isolated hunts and the consumption of other beings with the capability of thought, not much is known about them aside from the few of their surviving victims.</div>
+              </div>
+              <div class="dropdown-option" data-value="vahrani">
+                <div class="option-header">
+                  <span class="option-title">👽 Vahrani</span>
+                </div>
+                <div class="option-description">Blue-skinned and sharp-eared beings that came from the northeast sailing out of the Great Mist over seven millennia ago. Their blood is wholly alien and cannot mix with humanity, a constant reminder that they are exiles who belong to another lands, this species became rulers of the eastern-most lands.</div>
+              </div>
+              <div class="dropdown-option" data-value="mermir">
+                <div class="option-header">
+                  <span class="option-title">🦍 Mermir</span>
+                </div>
+                <div class="option-description">Hairy, strong, and primitive beings who walk on the threshold between beast and thinking people. They fashion crude tools, build simple hierarchies, and watch the fire with the first spark of awe. In them lies the promise of what might one day be, or the warning of what was long ago.</div>
+              </div>
+              <div class="dropdown-option" data-value="lumei">
+                <div class="option-header">
+                  <span class="option-title">😈 Lumei</span>
+                </div>
+                <div class="option-description">Horned and red-skinned demonic-looking beings who ruled cracks of the earth beyond the White Bahid Desert. Human aversion of them shattered their numbers, heavily decimating them and leading them into isolation. Now they are remembered more in curses and old songs than in sight, half-myth and half-survivor.</div>
+              </div>
+              <div class="dropdown-option" data-value="pari">
+                <div class="option-header">
+                  <span class="option-title">🧚 Pari</span>
+                </div>
+                <div class="option-description">Tiny, green-skinned fae bound by a hive-mind, the Pari live in great nests hidden among Axmordul wilderness and the Tall Trees Valley. Alone they are fragile like bugs, but as a swarm they are terrifying pests that can only be controlled by gifts and offerings to the hive mother.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="ethos-section">
+        <div class="ethos-header">
+          <div style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+            <h2 class="ethos-title">Cultural Ethics</h2>
+            <div class="label-help"
+              data-tooltip="Cultural Ethics define your society's core values. You have 3 points to spend. Each ethic costs 1 point, but selecting an opposite ethic costs 2 points. Click an ethic again to make it fanatic (costs +1 more point). Some ethics are mutually exclusive opposites.">
+              ?</div>
+          </div>
+          <p class="ethos-subtitle" id="ethosPointsTracker">Points Remaining: 3 <span
+              style="font-size: 0.8em; opacity: 0.7;">(Clicking an ethic again makes it fanatic)</span></p>
+        </div>
+        <div class="ethos-grid" id="ethosGrid"></div>
+      </div>
+
+      <div class="pillars-section">
+        <div class="section-header">
+          <h2 class="section-title">Cultural Pillars</h2>
+        </div>
+        <div class="pillars-grid">
+          <div class="pillar-box">
+            <div class="section-header">
+              <h3 class="pillar-title">Core Principles</h3>
+            </div>
+            <div class="pillar-content">
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="heritage">Heritage Location</label>
+                  <div class="label-help"
+                    data-tooltip="The geographical origin or ancestral homeland of this culture. This location shapes many cultural traditions, beliefs, and practices.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="heritage-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select heritage location</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="mountains">
+                      <div class="option-header">
+                        <span class="option-title">🏔️ Mountains</span>
+                      </div>
+                      <div class="option-description">Towering peaks and deep valleys shape this culture. Often features
+                        strong climbing traditions, resourcefulness in harsh conditions, and reverence for high places.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="hills">
+                      <div class="option-header">
+                        <span class="option-title">⛰️ Hills</span>
+                      </div>
+                      <div class="option-description">Rolling landscapes with moderate elevation. Cultures here often
+                        develop terraced farming, defensive hilltop settlements, and strong community bonds.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="plains">
+                      <div class="option-header">
+                        <span class="option-title">🌾 Plains</span>
+                      </div>
+                      <div class="option-description">Vast open grasslands with few natural barriers. These cultures
+                        often develop horse-riding traditions, nomadic lifestyles, and sophisticated astronomy for
+                        navigation.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="deserts">
+                      <div class="option-header">
+                        <span class="option-title">🏜️ Deserts</span>
+                      </div>
+                      <div class="option-description">Arid landscapes with scarce water. Cultures adapt with water
+                        conservation techniques, nocturnal activity patterns, and rich oral traditions to pass
+                        knowledge.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="forests">
+                      <div class="option-header">
+                        <span class="option-title">🌲 Forests</span>
+                      </div>
+                      <div class="option-description">Dense woodlands with abundant flora and fauna. Forest cultures
+                        often develop deep knowledge of plants, animals, and sustainable harvesting practices.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="jungles">
+                      <div class="option-header">
+                        <span class="option-title">🌴 Jungles</span>
+                      </div>
+                      <div class="option-description">Tropical rainforests with incredible biodiversity. Jungle cultures
+                        excel at herbal medicine, vertical architecture, and navigating complex ecosystems.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="tundra">
+                      <div class="option-header">
+                        <span class="option-title">🧊 Tundra</span>
+                      </div>
+                      <div class="option-description">Cold, treeless landscapes with permafrost. Tundra cultures develop
+                        sophisticated cold-weather clothing, seasonal migration patterns, and unique hunting techniques.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="wetlands">
+                      <div class="option-header">
+                        <span class="option-title">🌊 Wetlands</span>
+                      </div>
+                      <div class="option-description">Marshes, swamps, and floodplains with abundant water. These
+                        cultures often build stilted settlements, develop advanced fishing techniques, and have complex
+                        water deity worship.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="coastal">
+                      <div class="option-header">
+                        <span class="option-title">🏖️ Coastal</span>
+                      </div>
+                      <div class="option-description">Lands bordering oceans or seas. Coastal cultures typically excel
+                        at seafaring, fishing, and trade, with mythology centered around ocean deities and creatures.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="islands">
+                      <div class="option-header">
+                        <span class="option-title">🏝️ Islands</span>
+                      </div>
+                      <div class="option-description">Land surrounded by water. Island cultures often develop unique
+                        languages, sophisticated navigation techniques, and strong traditions of hospitality to
+                        outsiders.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="riverlands">
+                      <div class="option-header">
+                        <span class="option-title">🚣 Riverlands</span>
+                      </div>
+                      <div class="option-description">Fertile lands along major waterways. These cultures typically
+                        develop advanced irrigation, agriculture, and become centers of trade and cultural exchange.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="caves">
+                      <div class="option-header">
+                        <span class="option-title">🕳️ Caves</span>
+                      </div>
+                      <div class="option-description">Underground or cliff-dwelling societies. Cave cultures develop
+                        unique art forms, acclimatization to darkness, and sophisticated geological knowledge.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="volcanic">
+                      <div class="option-header">
+                        <span class="option-title">🌋 Volcanic</span>
+                      </div>
+                      <div class="option-description">Lands shaped by volcanic activity. These cultures often develop
+                        advanced metallurgy, fire-resistant building techniques, and complex volcano deity worship.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="cold-rainforest">
+                      <div class="option-header">
+                        <span class="option-title">🌲❄️ Cold Rainforest</span>
+                      </div>
+                      <div class="option-description">Unique biome combining cold temperatures with high rainfall and
+                        dense vegetation. Cultures here develop specialized cold-weather rain gear and unique
+                        adaptations to both cold and wet conditions.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="everlasting-autumn-forest">
+                      <div class="option-header">
+                        <span class="option-title">🍂 Everlasting Autumn Forest</span>
+                      </div>
+                      <div class="option-description">A magical forest that exists in a perpetual state of autumn.
+                        Cultures here celebrate cycles of change and harvest, with traditions centered around the
+                        beautiful but melancholic landscape.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="mistland">
+                      <div class="option-header">
+                        <span class="option-title">🌫️ Mistland</span>
+                      </div>
+                      <div class="option-description">A perpetually mist-shrouded landscape with limited visibility.
+                        Cultures develop exceptional hearing, echolocation techniques, and rich oral traditions to
+                        convey knowledge when sight is limited.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="geothermal-vents">
+                      <div class="option-header">
+                        <span class="option-title">♨️ Geothermal Vents</span>
+                      </div>
+                      <div class="option-description">Areas with hot springs, geysers, and volcanic activity. Cultures
+                        harness geothermal energy for heating, cooking, and unique industrial applications.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="mangrove-swamps">
+                      <div class="option-header">
+                        <span class="option-title">🌿 Mangrove Swamps</span>
+                      </div>
+                      <div class="option-description">Coastal wetlands with mangrove trees, brackish water, and unique
+                        ecosystems. Cultures develop boat-building skills, fishing techniques, and complex water
+                        management systems.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="bamboo-forests">
+                      <div class="option-header">
+                        <span class="option-title">🎋 Bamboo Forests</span>
+                      </div>
+                      <div class="option-description">Dense forests of bamboo, which can be used for construction, food,
+                        and tools. Cultures develop lightweight architecture, paper-making, and musical instruments.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="savannah">
+                      <div class="option-header">
+                        <span class="option-title">🦁 Savannah</span>
+                      </div>
+                      <div class="option-description">Grasslands with scattered trees, supporting large herds of
+                        animals. Cultures develop hunting traditions, animal husbandry, and sophisticated tracking
+                        skills.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="petrified-forests">
+                      <div class="option-header">
+                        <span class="option-title">🗿 Petrified Forests</span>
+                      </div>
+                      <div class="option-description">Forests where trees have turned to stone, creating a unique
+                        landscape. Cultures develop stone-working skills and create art from petrified wood.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="tall-trees-valley">
+                      <div class="option-header">
+                        <span class="option-title">🌳 Tall Trees Valley</span>
+                      </div>
+                      <div class="option-description">Valley with massive trees of 200m circumference and 50m tall.
+                        These colossal trees create a unique ecosystem with multiple layers of life, and cultures here
+                        develop tree-dwelling architecture and deep connections to the forest.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="taiga">
+                      <div class="option-header">
+                        <span class="option-title">🌲 Taiga</span>
+                      </div>
+                      <div class="option-description">Boreal forests with coniferous trees and long winters. Cultures
+                        excel at woodworking, fur trapping, and surviving in extreme cold conditions.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="oasis">
+                      <div class="option-header">
+                        <span class="option-title">🏜️ Oasis</span>
+                      </div>
+                      <div class="option-description">Fertile spots in desert regions with reliable water sources.
+                        Cultures develop sophisticated irrigation, date cultivation, and serve as vital trade centers.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="delta">
+                      <div class="option-header">
+                        <span class="option-title">🌊 Delta</span>
+                      </div>
+                      <div class="option-description">River deltas where rivers meet the sea. Cultures develop advanced
+                        agriculture, fishing industries, and become major trade hubs due to strategic location.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="canyon">
+                      <div class="option-header">
+                        <span class="option-title">🏞️ Canyon</span>
+                      </div>
+                      <div class="option-description">Deep canyons with cliffs and rivers. Cultures develop
+                        cliff-dwelling architecture, sophisticated water management, and unique defense strategies.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="caldera">
+                      <div class="option-header">
+                        <span class="option-title">🌋 Caldera</span>
+                      </div>
+                      <div class="option-description">Large volcanic basins formed by collapsed volcanoes. Cultures
+                        develop fertile agriculture in the rich soil and unique building techniques using volcanic rock.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="archipelago">
+                      <div class="option-header">
+                        <span class="option-title">🌊 Archipelago</span>
+                      </div>
+                      <div class="option-description">Groups of islands close together. Cultures develop sophisticated
+                        navigation, boat-building, and complex trade networks between islands.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="highlands">
+                      <div class="option-header">
+                        <span class="option-title">🏔️ Highlands</span>
+                      </div>
+                      <div class="option-description">Elevated plateaus with cooler climates. Cultures develop terrace
+                        farming, unique architecture, and serve as strategic defensive positions.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="fjord">
+                      <div class="option-header">
+                        <span class="option-title">🌊 Fjord</span>
+                      </div>
+                      <div class="option-description">Narrow sea inlets with steep cliffs. Cultures develop seafaring
+                        skills, fishing industries, and unique architecture clinging to cliff faces.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="martialGender">Martial Gender</label>
+                  <div class="label-help"
+                    data-tooltip="Determines which gender(s) are permitted to serve as warriors in this culture. This affects military structure, social roles, and cultural values around combat.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="martialGender-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select martial gender</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="male">
+                      <div class="option-header">
+                        <span class="option-title">♂️ Male only</span>
+                      </div>
+                      <div class="option-description">Only males are permitted to serve as warriors in this culture.
+                        Women typically support roles but are excluded from combat.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="either">
+                      <div class="option-header">
+                        <span class="option-title">⚧️ Either</span>
+                      </div>
+                      <div class="option-description">Both males and females may serve as warriors based on skill and
+                        inclination. Gender does not determine martial roles.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="female">
+                      <div class="option-header">
+                        <span class="option-title">♀️ Female only</span>
+                      </div>
+                      <div class="option-description">Only females are permitted to serve as warriors in this culture.
+                        Men typically support roles but are excluded from combat.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="interculturalRelations">Intercultural Relations</label>
+                  <div class="label-help"
+                    data-tooltip="Defines how this culture interacts with other societies. This affects trade, diplomacy, conflict, and cultural exchange with neighboring peoples.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="interculturalRelations-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select relation type</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="isolationist">
+                      <div class="option-header">
+                        <span class="option-title">🚫 Isolationist stance</span>
+                      </div>
+                      <div class="option-description">This culture avoids contact with outsiders, maintaining strict
+                        borders and limited trade. Foreign influences are viewed with suspicion.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="open">
+                      <div class="option-header">
+                        <span class="option-title">🌐 Open Borders</span>
+                      </div>
+                      <div class="option-description">Borders are open to all, with free movement of people, goods, and
+                        ideas. Cultural exchange is encouraged and celebrated.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="controlled">
+                      <div class="option-header">
+                        <span class="option-title">🛡️ Controlled Exchange</span>
+                      </div>
+                      <div class="option-description">Limited, regulated interaction with other cultures through
+                        specific trade routes and diplomatic channels. Exchange is monitored but permitted.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="expansionist">
+                      <div class="option-header">
+                        <span class="option-title">⚔️ Expansionist trading</span>
+                      </div>
+                      <div class="option-description">Actively seeks to expand influence through trade networks and
+                        sometimes military means. Views other cultures primarily as resources or markets.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="moderate">
+                      <div class="option-header">
+                        <span class="option-title">⚖️ Moderate</span>
+                      </div>
+                      <div class="option-description">Balanced approach to foreign relations, neither overly welcoming
+                        nor hostile. Selective engagement based on mutual benefit.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="aggressive">
+                      <div class="option-header">
+                        <span class="option-title">💥 Aggressive</span>
+                      </div>
+                      <div class="option-description">Hostile to most outside cultures, viewing them as threats or
+                        inferior. Limited interaction is primarily through conflict or coercion.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="legalFoundation">Legal Foundation</label>
+                  <div class="label-help"
+                    data-tooltip="The basis for laws and justice in this culture. This determines how laws are created, interpreted, and enforced throughout society.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="legalFoundation-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select legal foundation</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="divine">
+                      <div class="option-header">
+                        <span class="option-title">✝️ Divine Mandate</span>
+                      </div>
+                      <div class="option-description">Laws are believed to be divinely inspired or directly given by
+                        deities. Religious leaders often interpret and enforce legal codes.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="ancestral">
+                      <div class="option-header">
+                        <span class="option-title">👴 Ancestral Decrees</span>
+                      </div>
+                      <div class="option-description">Laws are based on traditions and decrees passed down through
+                        generations. Ancestors' wisdom guides legal decisions.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="warrior">
+                      <div class="option-header">
+                        <span class="option-title">⚔️ Warrior Code</span>
+                      </div>
+                      <div class="option-description">Legal system based on martial values, honor codes, and strength.
+                        Warriors often serve as judges and enforcers.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="scribe">
+                      <div class="option-header">
+                        <span class="option-title">📜 Scribe-Codified</span>
+                      </div>
+                      <div class="option-description">Laws are meticulously recorded and codified by scholars and
+                        scribes. Written text is the ultimate legal authority.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="oral">
+                      <div class="option-header">
+                        <span class="option-title">🗣️ Oral Consensus</span>
+                      </div>
+                      <div class="option-description">Laws and traditions are maintained through oral history and
+                        storytelling. Elders and storytellers preserve legal knowledge.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-box">
+            <div class="section-header">
+              <h3 class="pillar-title">Language and Arcane</h3>
+            </div>
+            <div class="pillar-content">
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="languageName">Language Name</label>
+                  <div class="label-help"
+                    data-tooltip="The name of the primary language spoken by this culture. This reflects their history, influences, and unique cultural identity.">
+                    ?</div>
+                </div>
+                <div class="input-container">
+                  <input type="text" id="languageName" placeholder="Enter language name">
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="knowledgeTransmission">Knowledge Transmission</label>
+                  <div class="label-help"
+                    data-tooltip="How knowledge, history, and cultural information are preserved and passed down through generations.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="knowledgeTransmission-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select transmission method</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="oral">
+                      <div class="option-header">
+                        <span class="option-title">🗣️ Oral Tradition</span>
+                      </div>
+                      <div class="option-description">Knowledge is passed through storytelling, songs, and verbal
+                        instruction. Elders and storytellers are highly respected for their memory and wisdom.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="written">
+                      <div class="option-header">
+                        <span class="option-title">📝 Written Texts</span>
+                      </div>
+                      <div class="option-description">Knowledge is recorded in written form, allowing for precise
+                        preservation and wide distribution. Literacy is valued and often restricted to certain classes.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="sign">
+                      <div class="option-header">
+                        <span class="option-title">🤟 Sign Language</span>
+                      </div>
+                      <div class="option-description">Complex system of gestures, hand signs, and body language used to
+                        convey information. May be primary or supplementary to spoken language.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="pictographs">
+                      <div class="option-header">
+                        <span class="option-title">🖼️ Pictographs</span>
+                      </div>
+                      <div class="option-description">Knowledge is recorded through visual symbols and drawings. Often
+                        found in cave paintings, tapestries, or carved into stone and wood.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="magicStance">Magic Stance</label>
+                  <div class="label-help"
+                    data-tooltip="The cultural attitude toward magic and its place in society. This determines how magic users are treated and how magic is regulated.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="magicStance-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select magic stance</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="unknown">
+                      <div class="option-header">
+                        <span class="option-title">❓ Unknown</span>
+                      </div>
+                      <div class="option-description">The culture does not know about magic or has no concept of it.
+                        Magical phenomena may be attributed to gods, spirits, or natural forces.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="scared">
+                      <div class="option-header">
+                        <span class="option-title">😨 Scared</span>
+                      </div>
+                      <div class="option-description">Magic is feared and avoided. Those who display magical abilities
+                        may be ostracized exiled, or even eliminated. Magic is seen as dangerous and unpredictable.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="banned">
+                      <div class="option-header">
+                        <span class="option-title">🚫 Banned</span>
+                      </div>
+                      <div class="option-description">Magic is explicitly prohibited by law or custom. Practitioners
+                        face severe punishment if discovered. Magical knowledge is suppressed or destroyed.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="military">
+                      <div class="option-header">
+                        <span class="option-title">⚔️ Military/Nobility Use Only</span>
+                      </div>
+                      <div class="option-description">Magic is restricted to the ruling class or military elite.
+                        Commoners are forbidden from practicing magic, and unauthorized use is severely punished.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="religious">
+                      <div class="option-header">
+                        <span class="option-title">⛪ Religious/Ritual Use Only</span>
+                      </div>
+                      <div class="option-description">Magic is only permitted within religious contexts and controlled
+                        by religious authorities. Secular or personal use of magic is forbidden.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="reactional">
+                      <div class="option-header">
+                        <span class="option-title">⚡ Reactional Use Only</span>
+                      </div>
+                      <div class="option-description">Magic is only used in response to specific threats or emergencies.
+                        Proactive or casual use of magic is discouraged or forbidden.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="accepted">
+                      <div class="option-header">
+                        <span class="option-title">✅ Fully Accepted</span>
+                      </div>
+                      <div class="option-description">Magic is a normal part of society, accepted and practiced openly.
+                        Magic users may hold various positions in the community without special stigma.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="encouraged">
+                      <div class="option-header">
+                        <span class="option-title">🌟 Encouraged</span>
+                      </div>
+                      <div class="option-description">Magic is highly valued and actively encouraged. Magical ability is
+                        seen as a gift, and practitioners may hold esteemed positions in society.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="magicType">Magic Type</label>
+                  <div class="label-help"
+                    data-tooltip="The primary form or source of magic in this culture. This determines how magical abilities are accessed and what they can accomplish.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="magicType-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select magic type</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="magair">
+                      <div class="option-header">
+                        <span class="option-title">🌸 Magair</span>
+                      </div>
+                      <div class="option-description">Hallucinogenic formula extracted from the magair flower, capable
+                        of connecting humans with djinns or inducing altered states of consciousness for spiritual
+                        journeys.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="blood">
+                      <div class="option-header">
+                        <span class="option-title">🩸 Blood</span>
+                      </div>
+                      <div class="option-description">Magic powered by life force, typically accessed through
+                        bloodletting or sacrifice. The potency often depends on the quantity and quality of the blood
+                        used.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="mass ritual">
+                      <div class="option-header">
+                        <span class="option-title">👥 Mass Ritual</span>
+                      </div>
+                      <div class="option-description">Magic that requires the coordinated efforts of many participants.
+                        These rituals often involve elaborate ceremonies, chants, and synchronized actions.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="soundweaving">
+                      <div class="option-header">
+                        <span class="option-title">🎵 Soundweaving</span>
+                      </div>
+                      <div class="option-description">Magic created through music, voice, or carefully crafted sounds.
+                        Practitioners can manipulate reality by creating specific harmonies, rhythms, or frequencies.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="ash reading">
+                      <div class="option-header">
+                        <span class="option-title">🔥 Ash Reading</span>
+                      </div>
+                      <div class="option-description">Divination and magic performed by interpreting patterns in ashes,
+                        smoke, or embers. Practitioners burn specific materials and read the resulting configurations.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="prayer">
+                      <div class="option-header">
+                        <span class="option-title">🙏 Prayer</span>
+                      </div>
+                      <div class="option-description">Magic granted by deities or spiritual entities in response to
+                        devout prayer and offerings. The power comes from an external source rather than the
+                        practitioner.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="pillar-box">
+            <div class="section-header">
+              <h3 class="pillar-title">Aesthetics</h3>
+            </div>
+            <div class="pillar-content">
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="architecture">Architecture</label>
+                  <div class="label-help"
+                    data-tooltip="The predominant building style and structures used by this culture. Architecture reflects available materials, technological level, and cultural values.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="architecture-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select architecture style</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="mudbrick">
+                      <div class="option-header">
+                        <span class="option-title">🏺 Mudbrick</span>
+                      </div>
+                      <div class="option-description">Buildings constructed from sun-dried mud bricks, often found in
+                        arid regions. Creates thick-walled, cool interiors with simple geometric forms.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="cliffside">
+                      <div class="option-header">
+                        <span class="option-title">🏔️ Cliffside</span>
+                      </div>
+                      <div class="option-description">Dwellings and structures carved directly into cliff faces or
+                        mountainsides. Offers natural defense and insulation against extreme temperatures.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="nuragic">
+                      <div class="option-header">
+                        <span class="option-title">🗼 Nuragic</span>
+                      </div>
+                      <div class="option-description">Distinctive stone towers and fortresses with truncated conical
+                        shapes. Features complex corbelled arches and megalithic construction techniques.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="monumental">
+                      <div class="option-header">
+                        <span class="option-title">🏛️ Monumental</span>
+                      </div>
+                      <div class="option-description">Massive structures like ziggurats and pyramids built with immense
+                        stone blocks. Demonstrates advanced engineering and centralized power.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="terraced">
+                      <div class="option-header">
+                        <span class="option-title">🏞️ Terraced</span>
+                      </div>
+                      <div class="option-description">Buildings constructed on hillsides with stepped or tiered
+                        platforms. Creates usable agricultural space and distinctive silhouettes against landscapes.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="canal-housing">
+                      <div class="option-header">
+                        <span class="option-title">🛶 Canal-Housing</span>
+                      </div>
+                      <div class="option-description">Dwellings built along or over waterways with integrated canal
+                        systems. Often features bridges, water gates, and boat access to homes.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="courtyard">
+                      <div class="option-header">
+                        <span class="option-title">🏡 Courtyard Homes</span>
+                      </div>
+                      <div class="option-description">Residences built around central open courtyards that provide
+                        light, ventilation, and private outdoor space. Common in warm climates.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="huts">
+                      <div class="option-header">
+                        <span class="option-title">🛖 Huts</span>
+                      </div>
+                      <div class="option-description">Simple, often round dwellings made from locally available
+                        materials like wood, thatch, or animal hides. Easy to construct and maintain.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="nomadic-tents">
+                      <div class="option-header">
+                        <span class="option-title">⛺ Nomadic Tents</span>
+                      </div>
+                      <div class="option-description">Portable dwellings made from fabric or hides stretched over
+                        frames. Designed for quick assembly and disassembly by mobile peoples.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="longhouses">
+                      <div class="option-header">
+                        <span class="option-title">🏠 Longhouses</span>
+                      </div>
+                      <div class="option-description">Elongated structures that house multiple families or an entire
+                        clan. Features shared hearths and communal living spaces.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="stone-circular">
+                      <div class="option-header">
+                        <span class="option-title">🪨 Stone Circular Homes</span>
+                      </div>
+                      <div class="option-description">Round stone buildings with conical roofs. Often features intricate
+                        stonework and defensive considerations in their design.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="artworks">Artworks</label>
+                  <div class="label-help"
+                    data-tooltip="The primary forms of artistic expression in this culture. Art reflects cultural values, religious beliefs, and technological capabilities.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="artworks-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select artwork type</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="pottery">
+                      <div class="option-header">
+                        <span class="option-title">🏺 Pottery</span>
+                      </div>
+                      <div class="option-description">Ceramic vessels, figurines, and decorative items. Often features
+                        painted designs, incised patterns, or sculpted reliefs depicting daily life, mythology, or
+                        abstract motifs.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="metalwork">
+                      <div class="option-header">
+                        <span class="option-title">⚒️ Metalwork</span>
+                      </div>
+                      <div class="option-description">Bronze and iron tools, weapons, jewelry, and decorative objects.
+                        Includes casting, forging, repoussé, and inlay techniques to create intricate designs and
+                        functional items.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="sculpture">
+                      <div class="option-header">
+                        <span class="option-title">🗿 Sculpture</span>
+                      </div>
+                      <div class="option-description">Stone, wood, or ivory carvings, statues, and reliefs. Ranges from
+                        small figurines to monumental statues, often depicting deities, rulers, or mythological scenes.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="frescoes">
+                      <div class="option-header">
+                        <span class="option-title">🎨 Frescoes</span>
+                      </div>
+                      <div class="option-description">Wall paintings using mineral pigments on wet plaster. Adorns
+                        palaces, temples, and tombs with narrative scenes, geometric patterns, or naturalistic motifs.
+                      </div>
+                    </div>
+                    <div class="dropdown-option" data-value="textiles">
+                      <div class="option-header">
+                        <span class="option-title">🧵 Textiles</span>
+                      </div>
+                      <div class="option-description">Woven fabrics with patterns and dyes, tapestries. Includes complex
+                        weaving techniques, embroidery, and dyeing methods to create garments, wall hangings, and
+                        ceremonial objects.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="mosaics">
+                      <div class="option-header">
+                        <span class="option-title">🧩 Mosaics</span>
+                      </div>
+                      <div class="option-description">Decorative designs made from small pieces of colored stone, glass,
+                        or ceramic. Used to floor pavements and decorate walls with intricate patterns and narrative
+                        scenes.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="engraving">
+                      <div class="option-header">
+                        <span class="option-title">✏️ Engraving</span>
+                      </div>
+                      <div class="option-description">Incised designs on metal, stone, or pottery. Includes detailed
+                        scenes, inscriptions, and decorative patterns on weapons, vessels, jewelry, and monuments.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="glasswork">
+                      <div class="option-header">
+                        <span class="option-title">🔍 Glasswork</span>
+                      </div>
+                      <div class="option-description">Early glass vessels, beads, and decorative items. Techniques
+                        include core-formed glass, mosaic glass, and later blown glass to create colorful and intricate
+                        objects.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="musicPerformances">Music & Performances</label>
+                  <div class="label-help"
+                    data-tooltip="The musical traditions and performance arts of this culture. These forms of expression often play central roles in ceremonies, storytelling, and social gatherings.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="musicPerformances-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select music & performance type</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="percussion-heavy">
+                      <div class="option-header">
+                        <span class="option-title">🥁 Percussion-Heavy</span>
+                      </div>
+                      <div class="option-description">Music dominated by drums, rattles, and other percussion
+                        instruments. Often features complex rhythms and is used for ceremonies, dances, and
+                        communication over distances.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="wind-instruments">
+                      <div class="option-header">
+                        <span class="option-title">🪘 Wind Instruments</span>
+                      </div>
+                      <div class="option-description">Music centered around flutes, horns, pipes, and other wind
+                        instruments. Often produces haunting melodies that carry across landscapes and are associated
+                        with natural spirits.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="stringed-instruments">
+                      <div class="option-header">
+                        <span class="option-title">🎸 Stringed Instruments</span>
+                      </div>
+                      <div class="option-description">Music featuring harps, lutes, lyres, and other stringed
+                        instruments. Often accompanies storytelling and epic poetry, with intricate melodies and
+                        harmonies.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="vocal-harmonies">
+                      <div class="option-header">
+                        <span class="option-title">🎤 Vocal Harmonies</span>
+                      </div>
+                      <div class="option-description">Music focused on complex vocal arrangements with minimal
+                        instrumentation. Often features multipart harmonies and is used for religious ceremonies and
+                        community bonding.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="theatrical-drama">
+                      <div class="option-header">
+                        <span class="option-title">🎭 Theatrical Drama</span>
+                      </div>
+                      <div class="option-description">Elaborate performances with costumes, masks, and staged
+                        narratives. Often depicts historical events, myths, and moral tales, with music as an integral
+                        component.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="storytelling-dance">
+                      <div class="option-header">
+                        <span class="option-title">💃 Storytelling Dance</span>
+                      </div>
+                      <div class="option-description">Dance performances that narrate stories without words. Each
+                        movement and gesture carries specific meaning, often preserving history and cultural knowledge
+                        through choreographed sequences.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="acrobatic-performances">
+                      <div class="option-header">
+                        <span class="option-title">🤸 Acrobatic Performances</span>
+                      </div>
+                      <div class="option-description">Physical displays of agility, strength, and balance. Often
+                        incorporates elements of dance, theater, and music to create spectacular entertainment for
+                        festivals and celebrations.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pillar-item">
+                <div class="label-container">
+                  <label for="cuisineDining">Cuisine & Dining</label>
+                  <div class="label-help"
+                    data-tooltip="The culinary traditions and dining customs of this culture. Food preparation, ingredients, and meal rituals often reflect environmental adaptations and social structures.">
+                    ?</div>
+                </div>
+                <div class="custom-dropdown" id="cuisineDining-dropdown">
+                  <div class="dropdown-selected">
+                    <span>Select cuisine & dining type</span>
+                    <span class="dropdown-arrow">▼</span>
+                  </div>
+                  <div class="dropdown-options">
+                    <div class="dropdown-option" data-value="spice-heavy">
+                      <div class="option-header">
+                        <span class="option-title">🌶️ Spice-Heavy Cuisine</span>
+                      </div>
+                      <div class="option-description">Food characterized by bold flavors and extensive use of spices.
+                        Often features complex seasoning blends and preservation techniques that emphasize flavor over
+                        longevity.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="fermentation-focused">
+                      <div class="option-header">
+                        <span class="option-title">🧪 Fermentation-Focused</span>
+                      </div>
+                      <div class="option-description">Cuisine centered around fermented foods and beverages. Includes
+                        pickled vegetables, cultured dairy, fermented breads, and alcoholic beverages with unique
+                        regional variations.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="communal-feasting">
+                      <div class="option-header">
+                        <span class="option-title">🍽️ Communal Feasting</span>
+                      </div>
+                      <div class="option-description">Dining customs that emphasize shared meals from common vessels.
+                        Food is a social binder, with elaborate feasting rituals that reinforce community bonds and
+                        hierarchies.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="foraging-based">
+                      <div class="option-header">
+                        <span class="option-title">🌿 Foraging-Based</span>
+                      </div>
+                      <div class="option-description">Cuisine relying heavily on wild foods gathered from the
+                        environment. Features seasonal ingredients, preservation techniques for scarce resources, and
+                        deep knowledge of local plants.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="ritualistic-dining">
+                      <div class="option-header">
+                        <span class="option-title">🕯️ Ritualistic Dining</span>
+                      </div>
+                      <div class="option-description">Elaborate dining ceremonies with strict protocols and symbolic
+                        meanings. Specific foods are reserved for certain occasions, and meal preparation is considered
+                        a sacred act.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="nomadic-cuisine">
+                      <div class="option-header">
+                        <span class="option-title">🥾 Nomadic Cuisine</span>
+                      </div>
+                      <div class="option-description">Food traditions adapted to mobile lifestyles. Features portable
+                        ingredients, preservation methods like drying and smoking, and efficient cooking techniques that
+                        work with limited resources.</div>
+                    </div>
+                    <div class="dropdown-option" data-value="ceremonial-fasting">
+                      <div class="option-header">
+                        <span class="option-title">⏳ Ceremonial Fasting</span>
+                      </div>
+                      <div class="option-description">Culture that incorporates ritual fasting as part of religious or
+                        spiritual practice. Feasting and fasting cycles mark important calendar events and life
+                        transitions.</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="traditions-section">
+        <div style="display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 20px;">
+          <h2 class="traditions-title" style="margin-bottom: 0;">Cultural Traditions</h2>
+          <div class="label-help"
+            data-tooltip="Cultural Traditions represent unique practices, customs, and specializations of your society. You can select up to 5 traditions from different categories. Click on empty slots to add random traditions, or browse the tabs below to choose specific ones. Some traditions may have requirements based on your selected ethics.">
+            ?</div>
+        </div>
+        <div class="tradition-slots-container" id="traditionSlotsContainer">
+          <!-- Slots will be generated by JS -->
+        </div>
+        <div class="tradition-tabs-container" id="traditionTabsContainer">
+          <div class="tradition-tabs-nav" id="traditionTabsNav">
+            <!-- Tab buttons will be generated here -->
+          </div>
+          <div style="display: flex; align-items: center; gap: 15px;">
+            <button class="action-btn randomize-traditions-btn" onclick="randomizeTraditions()">Randomize
+              Traditions</button>
+            <button class="action-btn clear-btn" onclick="clearAllTraditions()">Clear All Traditions</button>
+            <div class="search-traditions-container">
+              <input type="text" id="traditionSearchInput" placeholder="Search traditions..."
+                class="tradition-search-input">
+            </div>
+          </div>
+          <div id="traditionTabContentContainer">
+            <!-- Tab content will be generated here -->
+          </div>
+        </div>
+      </div>
+
+      <div class="clothing-section">
+        <div class="section-header">
+          <h2 class="section-title">Clothing & Appearance</h2>
+        </div>
+        <div class="clothing-box">
+          <div class="clothing-content">
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Clothing Materials
+                <div class="clothing-help"
+                  data-tooltip="The primary materials used to create clothing in this culture. Materials reflect available resources, technological level, and trade connections.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="clothingMaterials-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select clothing material</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="plant-fibers">
+                    <div class="option-header">
+                      <span class="option-title">🌱 Plant Fibers</span>
+                    </div>
+                    <div class="option-description">Materials derived from plants including linen, hemp, flax, and
+                      nettle fiber. Lightweight, breathable, and suitable for warm climates.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="animal-fibers">
+                    <div class="option-header">
+                      <span class="option-title">🐑 Animal Fibers</span>
+                    </div>
+                    <div class="option-description">Materials from animal sources such as wool, hair yarn, felt, and
+                      fur. Provides excellent insulation and durability in colder regions.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="leather-hide">
+                    <div class="option-header">
+                      <span class="option-title">🐄 Leather & Hide</span>
+                    </div>
+                    <div class="option-description">Treated animal skins ranging from soft buckskin tunics to stiff hide
+                      coats. Water-resistant, durable, and used for protective garments.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="silk-precursors">
+                    <div class="option-header">
+                      <span class="option-title">🐛 Silk Precursors</span>
+                    </div>
+                    <div class="option-description">Luxurious fine fabrics from insect or plant sources that mimic
+                      properties of silk. Often reserved for elite or ceremonial use.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="barkcloth">
+                    <div class="option-header">
+                      <span class="option-title">🌳 Barkcloth</span>
+                    </div>
+                    <div class="option-description">Textile made from the inner bark of certain trees. Beaten into thin
+                      sheets and often decorated with dyes and patterns.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Garment Types
+                <div class="clothing-help"
+                  data-tooltip="The primary styles and forms of clothing worn by this culture. Garments reflect climate, social structure, and cultural values.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="garmentTypes-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select garment type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="draped-cloths">
+                    <div class="option-header">
+                      <span class="option-title">👘 Draped Cloths</span>
+                    </div>
+                    <div class="option-description">Unsewn lengths of fabric wrapped and draped around the body. Allows
+                      for versatility in styling and adaptation to different temperatures.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="tunics">
+                    <div class="option-header">
+                      <span class="option-title">👕 Tunics</span>
+                    </div>
+                    <div class="option-description">Simple, T-shaped garments that slip over the head. Worn by all
+                      social classes with variations in length, fabric, and ornamentation.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="kilts-skirts">
+                    <div class="option-header">
+                      <span class="option-title">👖 Kilts & Skirts</span>
+                    </div>
+                    <div class="option-description">Lower body garments that wrap or are sewn into tube-like shapes. May
+                      be worn by any gender depending on cultural norms.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="robes-kaftans">
+                    <div class="option-header">
+                      <span class="option-title">👘 Robes & Kaftans</span>
+                    </div>
+                    <div class="option-description">Long, flowing garments that cover most of the body. Often associated
+                      with status, religious roles, or formal occasions.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="cloaks-capes">
+                    <div class="option-header">
+                      <span class="option-title">🧥 Cloaks & Capes</span>
+                    </div>
+                    <div class="option-description">Outer garments worn over other clothing for warmth, protection, or
+                      as status symbols. Fastened at the neck or shoulder.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="breeches-trousers">
+                    <div class="option-header">
+                      <span class="option-title">👖 Breeches & Trousers</span>
+                    </div>
+                    <div class="option-description">Two-legged garments covering the lower body. Associated with active
+                      lifestyles, horse riding, or colder climates.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="aprons-loincloths">
+                    <div class="option-header">
+                      <span class="option-title">🧵 Aprons & Loincloths</span>
+                    </div>
+                    <div class="option-description">Minimal garments covering only essential areas. Common in warm
+                      climates or for specific occupations and rituals.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="wrapped-sashes">
+                    <div class="option-header">
+                      <span class="option-title">🎀 Wrapped Sashes & Belts</span>
+                    </div>
+                    <div class="option-description">Long strips of fabric wrapped around the waist or torso. Can be
+                      functional, decorative, or serve as pockets for carrying items.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Headwear
+                <div class="clothing-help"
+                  data-tooltip="The types of head coverings worn by this culture. Headwear can indicate status, profession, religious affiliation, or protection from elements.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="headwear-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select headwear type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="headbands-fillets">
+                    <div class="option-header">
+                      <span class="option-title">🎗️ Headbands & Fillets</span>
+                    </div>
+                    <div class="option-description">Simple bands worn around the head to keep hair in place or as
+                      decoration. May be plain or elaborately decorated depending on status.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="hoods-cowls">
+                    <div class="option-header">
+                      <span class="option-title">🧥 Hoods & Cowls</span>
+                    </div>
+                    <div class="option-description">Coverings for the head and neck that can be pulled forward for
+                      protection or anonymity. Often attached to cloaks or robes.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="tall-crowns-diadems">
+                    <div class="option-header">
+                      <span class="option-title">👑 Tall Crowns & Diadems</span>
+                    </div>
+                    <div class="option-description">Elaborate headpieces worn by rulers or nobility to signify
+                      authority. Often made of precious metals and gemstones.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="wide-brimmed-hats">
+                    <div class="option-header">
+                      <span class="option-title">👒 Wide-brimmed Hats</span>
+                    </div>
+                    <div class="option-description">Hats with broad brims that provide sun protection. Common in
+                      agricultural societies and regions with intense sunlight.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="veils-face-covers">
+                    <div class="option-header">
+                      <span class="option-title">🧕 Veils & Face Covers</span>
+                    </div>
+                    <div class="option-description">Light fabrics that cover the face or head for religious, cultural,
+                      or practical reasons. May indicate modesty, status, or group identity.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="helm-like-hats">
+                    <div class="option-header">
+                      <span class="option-title">⚔️ Helm-like Hats</span>
+                    </div>
+                    <div class="option-description">Protective headgear that resembles helmets but may be made of
+                      leather, felt, or other materials. Worn by warriors or in hazardous occupations.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Footwear
+                <div class="clothing-help"
+                  data-tooltip="The types of foot coverings worn by this culture. Footwear reflects terrain, climate, social status, and cultural practices.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="footwear-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select footwear type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="barefoot">
+                    <div class="option-header">
+                      <span class="option-title">👣 Barefoot</span>
+                    </div>
+                    <div class="option-description">No footwear worn. Common in warm climates, among certain religious
+                      groups, or for specific activities that require direct ground contact.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="sandals">
+                    <div class="option-header">
+                      <span class="option-title">👡 Sandals</span>
+                    </div>
+                    <div class="option-description">Simple footwear with soles held to the foot by straps. Allows
+                      ventilation while protecting the sole from rough terrain.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="soft-boots-moccasins">
+                    <div class="option-header">
+                      <span class="option-title">🥾 Soft Boots & Moccasins</span>
+                    </div>
+                    <div class="option-description">Flexible footwear made from soft leather or fabric. Conforms to the
+                      foot for comfort and is often worn for long distances.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="wooden-clogs">
+                    <div class="option-header">
+                      <span class="option-title">👠 Wooden Clogs</span>
+                    </div>
+                    <div class="option-description">Footwear with wooden soles and sometimes uppers. Elevates the foot
+                      above wet or uneven ground and provides durability.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="wrapped-footcloths">
+                    <div class="option-header">
+                      <span class="option-title">🧦 Wrapped Footcloths</span>
+                    </div>
+                    <div class="option-description">Long strips of fabric wrapped around the foot and lower leg.
+                      Versatile and adjustable, can be adapted to different conditions.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Jewelry & Accessories
+                <div class="clothing-help"
+                  data-tooltip="The decorative items worn by this culture. Jewelry and accessories can indicate status, wealth, religious beliefs, or group identity.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="jewelry-accessories-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select jewelry type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="necklaces-collars">
+                    <div class="option-header">
+                      <span class="option-title">📿 Necklaces & Collars</span>
+                    </div>
+                    <div class="option-description">Ornaments worn around the neck. Can range from simple cords to
+                      elaborate collars made of precious materials, often indicating status.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="armlets-bracelets-anklets">
+                    <div class="option-header">
+                      <span class="option-title">🔗 Armlets, Bracelets & Anklets</span>
+                    </div>
+                    <div class="option-description">Circular bands worn around arms, wrists, or ankles. May be rigid or
+                      flexible, decorative or functional, and made from various materials.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="earrings-earplugs">
+                    <div class="option-header">
+                      <span class="option-title">💎 Earrings & Earplugs</span>
+                    </div>
+                    <div class="option-description">Jewelry worn in or on the ears. May require piercings or stretched
+                      earlobes, and can indicate coming of age or social status.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="piercings">
+                    <div class="option-header">
+                      <span class="option-title">💉 Piercings</span>
+                    </div>
+                    <div class="option-description">Decorative jewelry inserted through piercings in various body parts.
+                      Can signify rites of passage, spiritual beliefs, or personal adornment.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="brooches-pins">
+                    <div class="option-header">
+                      <span class="option-title">🧷 Brooches & Pins</span>
+                    </div>
+                    <div class="option-description">Decorative fasteners used to secure clothing. Often highly
+                      ornamental and passed down as heirlooms or bearing family crests.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="signet-rings">
+                    <div class="option-header">
+                      <span class="option-title">💍 Signet Rings</span>
+                    </div>
+                    <div class="option-description">Rings bearing engraved seals used to authenticate documents. Worn by
+                      nobility and officials as symbols of authority.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="amulets-talismans">
+                    <div class="option-header">
+                      <span class="option-title">🔮 Amulets & Talismans</span>
+                    </div>
+                    <div class="option-description">Objects believed to provide protection or bring good fortune. Often
+                      worn as jewelry and may incorporate symbolic materials or inscriptions.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Hairstyles
+                <div class="clothing-help"
+                  data-tooltip="The ways people in this culture style their hair. These practices can indicate age, status, group affiliation, or life events.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="hairstyles-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select hairstyle type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="long-hair-braids">
+                    <div class="option-header">
+                      <span class="option-title">💇 Long Hair & Braids</span>
+                    </div>
+                    <div class="option-description">Hair worn long and often elaborately braided. Braiding patterns can
+                      indicate social status, age, marital status, or group affiliation.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="shaven-heads">
+                    <div class="option-header">
+                      <span class="option-title">🔪 Shaven Heads</span>
+                    </div>
+                    <div class="option-description">Complete or partial removal of hair. Can signify religious devotion,
+                      punishment, mourning, or simply practicality in certain climates or occupations.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="wigs">
+                    <div class="option-header">
+                      <span class="option-title">🎭 Wigs</span>
+                    </div>
+                    <div class="option-description">Artificial hair coverings worn over natural hair. Used for fashion,
+                      to indicate status, or to conceal hair loss due to age or medical conditions.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="oiled-perfumed-hair">
+                    <div class="option-header">
+                      <span class="option-title">💧 Oiled & Perfumed Hair</span>
+                    </div>
+                    <div class="option-description">Hair treated with oils and fragrances. Indicates wealth (access to
+                      luxury goods) and attention to personal grooming, often associated with elite classes.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="beard-cultures">
+                    <div class="option-header">
+                      <span class="option-title">🧔 Beard Cultures</span>
+                    </div>
+                    <div class="option-description">Facial hair is culturally significant and often elaborately styled.
+                      Beards may indicate wisdom, maturity, masculinity, or social status.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Body Markings
+                <div class="clothing-help"
+                  data-tooltip="Permanent or temporary body modifications used for decoration, status indication, spiritual protection, or to mark life achievements or group affiliation.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="bodyMarkings-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select body marking type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="none">
+                    <div class="option-header">
+                      <span class="option-title">❌ No Body Markings</span>
+                    </div>
+                    <div class="option-description">This culture does not practice any form of body modification or
+                      marking. People maintain their natural appearance without tattoos, scars, or other modifications.
+                    </div>
+                  </div>
+                  <div class="dropdown-option" data-value="tattoos">
+                    <div class="option-header">
+                      <span class="option-title">🖋️ Tattoos</span>
+                    </div>
+                    <div class="option-description">Permanent ink designs inserted into the skin. Often tell stories,
+                      indicate social status, mark achievements, or serve as spiritual protection.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="scarification">
+                    <div class="option-header">
+                      <span class="option-title">⚔️ Scarification</span>
+                    </div>
+                    <div class="option-description">Intentional scarring of the skin to create patterns or designs.
+                      Often used in rites of passage, to indicate bravery, or as a form of artistic expression.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="body-paint">
+                    <div class="option-header">
+                      <span class="option-title">🎨 Body Paint</span>
+                    </div>
+                    <div class="option-description">Temporary designs painted on the body using natural pigments. Used
+                      for ceremonies, rituals, camouflage, or everyday decoration depending on the culture.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="henna">
+                    <div class="option-header">
+                      <span class="option-title">🌿 Henna</span>
+                    </div>
+                    <div class="option-description">Temporary body art created using henna paste. Often used for
+                      celebrations, weddings, and religious festivals, with intricate patterns that fade over time.
+                    </div>
+                  </div>
+                  <div class="dropdown-option" data-value="tooth-blackening">
+                    <div class="option-header">
+                      <span class="option-title">🦷 Tooth Blackening</span>
+                    </div>
+                    <div class="option-description">Cultural practice of darkening teeth using natural dyes. Considered
+                      a sign of beauty, maturity, or social status in some societies.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="lip-plates">
+                    <div class="option-header">
+                      <span class="option-title">👄 Lip Plates</span>
+                    </div>
+                    <div class="option-description">Insertion of plates or discs into stretched lip piercings. Often
+                      indicates social status, age, or marriage eligibility in certain cultures.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="clothing-item">
+              <div class="clothing-label">
+                Scent & Perfume
+                <div class="clothing-help"
+                  data-tooltip="The use of natural or magical scents, which can be important for cultural rituals, status, or personal expression.">
+                  ?</div>
+              </div>
+              <div class="custom-dropdown" id="scentPerfume-dropdown">
+                <div class="dropdown-selected">
+                  <span>Select scent & perfume type</span>
+                  <span class="dropdown-arrow">▼</span>
+                </div>
+                <div class="dropdown-options">
+                  <div class="dropdown-option" data-value="floral-perfumes">
+                    <div class="option-header">
+                      <span class="option-title">🌸 Floral Perfumes</span>
+                    </div>
+                    <div class="option-description">Scents derived from flowers and blossoms. Often associated with
+                      femininity, spring, and celebration in many cultures.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="woody-resins">
+                    <div class="option-header">
+                      <span class="option-title">🌲 Woody Resins</span>
+                    </div>
+                    <div class="option-description">Fragrances from tree resins, bark, and wood. Often used in religious
+                      ceremonies and associated with strength and wisdom.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="spice-blends">
+                    <div class="option-header">
+                      <span class="option-title">🌶️ Spice Blends</span>
+                    </div>
+                    <div class="option-description">Complex scents created from combinations of spices. Often worn by
+                      merchants, travelers, and those wishing to appear exotic and worldly.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="incense">
+                    <div class="option-header">
+                      <span class="option-title">🔥 Incense</span>
+                    </div>
+                    <div class="option-description">Burning of aromatic materials to produce fragrant smoke. Used in
+                      religious ceremonies, meditation, and to purify spaces.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="animal-musk">
+                    <div class="option-header">
+                      <span class="option-title">🦌 Animal Musk</span>
+                    </div>
+                    <div class="option-description">Scents derived from animal sources. Often associated with hunting,
+                      strength, and virility in many warrior cultures.</div>
+                  </div>
+                  <div class="dropdown-option" data-value="magical-essences">
+                    <div class="option-header">
+                      <span class="option-title">✨ Magical Essences</span>
+                    </div>
+                    <div class="option-description">Scents created through alchemical or magical processes. May have
+                      supernatural properties such as enhancing charisma, repelling evil spirits, or inducing specific
+                      emotions.</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="biography-section">
+        <div class="name-input-group">
+          <label for="exampleNames">Example Names</label>
+          <textarea id="exampleNames" rows="8"
+            placeholder="List some common names for people from this culture..."></textarea>
+        </div>
+        <div class="name-input-group">
+          <label for="cultureBiography">Culture Biography</label>
+          <textarea id="cultureBiography" rows="8"
+            placeholder="Write a brief history or description of this culture..."></textarea>
+        </div>
+      </div>
+
+      <div class="generate-section">
+        <button class="generate-btn" onclick="saveCultureToFile()">Save as TXT</button>
+        <button class="generate-btn png-btn" onclick="exportPageAsPNG()">Save as PNG</button>
+        <button class="generate-btn" onclick="importFromFile()">Import from TXT</button>
+        <button class="generate-btn" onclick="generateShareableLink()">Share</button>
+        <input type="file" id="fileInput" accept=".txt" style="display: none;" onchange="handleFileImport(event)">
+      </div>
+
+
+    </main>
+  </div>
+
+  <div class="notification" id="notification"></div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+
+</html>
