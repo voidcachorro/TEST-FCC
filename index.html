@@ -56,8 +56,6 @@
           <button class="action-btn randomize-btn" onclick="randomizeAllOptions()">Randomize All</button>
           <button class="action-btn clear-btn" onclick="clearAllOptions()">Clear All</button>
           <button class="action-btn auto-generate-btn" onclick="fillInBlanks()">Fill in Blanks</button>
-          <button class="action-btn undo-redo-btn" onclick="undo()">Undo</button>
-          <button class="action-btn undo-redo-btn" onclick="redo()">Redo</button>
         </div>
       </div>
 
@@ -1641,7 +1639,8 @@
         <button class="generate-btn" onclick="saveCultureToFile()">Save as TXT</button>
         <button class="generate-btn png-btn" onclick="exportPageAsPNG()">Save as PNG</button>
         <button class="generate-btn" onclick="importFromFile()">Import from TXT</button>
-        <button class="generate-btn" onclick="generateShareableLink()">Share</button>
+        <button class="generate-btn" onclick="importFromLink()">Import from link</button>
+        <button class="generate-btn" onclick="exportToLink()">Export to link</button>
         <input type="file" id="fileInput" accept=".txt" style="display: none;" onchange="handleFileImport(event)">
       </div>
 
